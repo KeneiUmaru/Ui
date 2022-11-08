@@ -273,6 +273,7 @@ do
             end;
         end;
 
+
         local PickerFrameOuter = Library:Create('Frame', {
             Name = 'Color';
             BackgroundColor3 = Color3.new(1, 1, 1);
@@ -1475,7 +1476,7 @@ do
             Position = UDim2.new(0, 5, 0, 0);
             Size = UDim2.new(1, -5, 1, 0);
             TextSize = 14;
-            Text = '--';
+            Text = 'Null';
             TextXAlignment = Enum.TextXAlignment.Left;
             TextWrapped = true;
             ZIndex = 7;
@@ -2156,18 +2157,25 @@ function Library:CreateWindow(WindowTitle)
             Parent = TabContainer;
         });
 
-        local LeftSide = Library:Create('Frame', {
+        local RelativeOffset = 0;
+        for _, Element in next, Container:GetChildren() do
+            if not Element:IsA('UIListLayout') then
+                RelativeOffset = RelativeOffset + Element.Size.Y.Offset;
+            end;
+        end;
+
+        local LeftSide = Library:Create('ScrollingFrame', { --Frame
             BackgroundTransparency = 1;
             Position = UDim2.new(0, 8, 0, 8);
-            Size = UDim2.new(0.5, -12, 0, 507);
+            Size = UDim2.new(0.5, -12, 0, RelativeOffset); --507
             ZIndex = 2;
             Parent = TabFrame;
         });
 
-        local RightSide = Library:Create('Frame', {
+        local RightSide = Library:Create('ScrollingFrame', { --Frame
             BackgroundTransparency = 1;
             Position = UDim2.new(0.5, 4, 0, 8);
-            Size = UDim2.new(0.5, -12, 0, 507);
+            Size = UDim2.new(0.5, -12, 0, RelativeOffset);
             ZIndex = 2;
             Parent = TabFrame;
         });
